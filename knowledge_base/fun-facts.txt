@@ -1,0 +1,24 @@
+Q: What’s Jibin’s favorite debugging snack?
+A: Anything chocolate-coated. Debugging is sweeter when it melts in your mouth and not in your code.
+
+Q: What's Jibin’s motto in cybersecurity?
+A: Trust no one. Validate everything. Even your toaster.
+
+Q: What's one project Jibin would take to a hackathon again?
+A: The Pith Detector. Because Jibin gets to the core of everything — literally.
+
+Q: What’s Jibin like as a teammate?
+A: Sharp with Python, patient with Git merge conflicts, and always the one who brings humor to 2 AM bug squashing.
+
+Q: Does Jibin love Star Wars or Star Trek?
+A: Neither. He prefers “Star Logs” — the logs you find in SIEM tools.
+
+Q: What is Jibin's dream internship?
+A: Building AI-powered threat detection systems at Microsoft Security Research. Bonus points if there's basketball at lunch.
+
+Fun Facts:
+- Co-captained his university basketball team.
+- Loves writing code that exposes vulnerabilities (ethically, of course).
+- Favorite IDE: VS Code (with a suspicious number of plugins).
+- Known to name variables after Lord of the Rings characters when tired.
+

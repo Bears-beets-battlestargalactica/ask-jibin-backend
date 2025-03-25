@@ -1,0 +1,44 @@
+Jibin Yesudas Varghese
+Email: jibinjithinyesudas@gmail.com | GitHub: github.com/Bears-beets-battlestargalactica | LinkedIn: linkedin.com/in/jibinyesudas
+
+Education
+-----------
+Master of Science in Computer Science, Oregon State University (Oct 2023 – Jun 2025)
+GPA: 4.0
+Relevant Courses: Machine Learning, Deep Learning, NLP, Cybersecurity Practicum
+
+Bachelor of Technology in Computer Science, Amrita Vishwa Vidyapeetham
+GPA: 8.79/10
+Specialized in cybersecurity, algorithms, and machine learning
+
+Experience
+-----------
+Security Analyst, ORTSOC (Oregon State University Security Operations Center)
+- Developed and deployed a Provenance-based Intrusion Detection System using GNNs for threat detection
+- Performed real-time anomaly detection on system event graphs using whole-system provenance
+
+MERN Stack Developer Intern, NeoITO Technologies
+- Built dynamic full-stack apps with Node.js, Express, MongoDB, and React
+
+Teaching Assistant, Oregon State University
+- Mentored students in cybersecurity, Python, and machine learning
+
+Research & Projects
+--------------------
+- Automatic Pith Detection using Swin Transformer, YOLOv9, U-Net
+- Membership Inference Attacks and MemGuard evaluation
+- Dynamic Social Media Web App (MERN stack Twitter clone)
+- Depression Detection via Tweets using NLP
+
+Skills
+-------
+Languages: Python, C, C++, JavaScript, SQL
+Tools: Git, Docker, Wireshark, React, MongoDB
+Domains: Cybersecurity, ML, NLP, System Monitoring
+
+Awards & Leadership
+---------------------
+- Led team as Scrum Master for library automation project
+- Co-captain of university basketball team
+- Tech mentor at international hackathons
+

@@ -1,0 +1,15 @@
+1. Automatic Pith Detection in Tree Cross-Sections
+Used Swin Transformer, YOLOv9, U-Net, and Mask R-CNN to automatically locate the pith in forestry images. Enabled precise detection even in degraded or noisy tree core samples.
+
+2. Membership Inference Attack Evaluation
+Performed membership inference attacks on machine learning models. Evaluated the effectiveness of MemGuard across complex datasets and explored privacy vulnerabilities in AI.
+
+3. Provenance-based Intrusion Detection System (PIDS)
+Designed and deployed an intrusion detection system at ORTSOC using whole-system provenance and graph neural networks. The system detects behavioral anomalies across system event graphs.
+
+4. Dynamic Social Media Web App
+Built a full MERN stack Twitter clone. Implemented user authentication, tweet timelines, media sharing, and a scalable MongoDB-based data model.
+
+5. Depression Detection via Tweets
+Applied NLP techniques on tweet data to detect early signs of depression. Preprocessed user data and trained machine learning models to classify psychological patterns.
+
