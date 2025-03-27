@@ -1,21 +1,17 @@
-from transformers import AutoTokenizer, AutoModel
+from sentence_transformers import SentenceTransformer
 import torch
 import numpy as np
 import faiss
 from pathlib import Path
 
-# Load a local Hugging Face model
-model_name = "thenlper/gte-large"
-tokenizer = AutoTokenizer.from_pretrained(model_name)
-model = AutoModel.from_pretrained(model_name)
+# Load a lightweight embedding model
+model = SentenceTransformer("sentence-transformers/paraphrase-albert-small-v2")
 
+# Embed function
 def embed(text):
-    inputs = tokenizer(text, return_tensors="pt", truncation=True, padding=True)
-    with torch.no_grad():
-        outputs = model(**inputs)
-    embeddings = outputs.last_hidden_state.mean(dim=1)
-    return embeddings[0].numpy()
+    return model.encode([text])[0]
 
+# Load documents
 def load_docs(folder):
     chunks = []
     for file in Path(folder).glob("*.txt"):
