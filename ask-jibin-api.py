@@ -3,6 +3,8 @@ from sentence_transformers import SentenceTransformer
 import faiss
 import numpy as np
 import os
+from flask_cors import CORS
+
 
 # Load lightweight sentence-transformer model
 model = SentenceTransformer("sentence-transformers/paraphrase-albert-small-v2")
@@ -31,6 +33,7 @@ def get_context(query):
 
 # Set up Flask app
 app = Flask(__name__)
+CORS(app)
 
 @app.route("/chat", methods=["POST"])
 def chat():
