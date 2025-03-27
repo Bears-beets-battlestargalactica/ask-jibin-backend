@@ -1,9 +1,20 @@
-# embed_documents.py
-import openai, faiss
-import os
+from transformers import AutoTokenizer, AutoModel
+import torch
+import numpy as np
+import faiss
 from pathlib import Path
 
-openai.api_key = os.getenv("OPENAI_API_KEY")
+# Load a local Hugging Face model
+model_name = "thenlper/gte-large"
+tokenizer = AutoTokenizer.from_pretrained(model_name)
+model = AutoModel.from_pretrained(model_name)
+
+def embed(text):
+    inputs = tokenizer(text, return_tensors="pt", truncation=True, padding=True)
+    with torch.no_grad():
+        outputs = model(**inputs)
+    embeddings = outputs.last_hidden_state.mean(dim=1)
+    return embeddings[0].numpy()
 
 def load_docs(folder):
     chunks = []
@@ -16,16 +27,11 @@ def load_docs(folder):
 docs = load_docs("knowledge_base/")
 texts = [doc["text"] for doc in docs]
 
-# Get embeddings
-embeddings = [openai.Embedding.create(input=t, model="text-embedding-ada-002")["data"][0]["embedding"] for t in texts]
+# Generate embeddings
+embeddings = [embed(t) for t in texts]
 
-# Build FAISS index
+# Save FAISS index
 dimension = len(embeddings[0])
 index = faiss.IndexFlatL2(dimension)
 index.add(np.array(embeddings).astype("float32"))
-
-# Save index and metadata
 faiss.write_index(index, "jibin_index.faiss")
-with open("metadata.txt", "w") as f:
-    for doc in docs:
-        f.write(f"{doc['filename']}\n")
