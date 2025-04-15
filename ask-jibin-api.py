@@ -33,7 +33,7 @@ def get_context(query):
 
 # Set up Flask app
 app = Flask(__name__)
-CORS(app)
+CORS(app,origins="*")
 
 @app.route("/chat", methods=["POST"])
 def chat():
