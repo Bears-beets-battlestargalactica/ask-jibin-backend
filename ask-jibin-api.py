@@ -1,26 +1,39 @@
 from flask import Flask, request, jsonify
-from flask_cors import CORS
-import os
-from datetime import datetime
+from sentence_transformers import SentenceTransformer
 import faiss
 import numpy as np
-import pickle
+import os
+from flask_cors import CORS
 
-# Load FAISS index (this is lightweight) new
+
+# Load lightweight sentence-transformer model
+model = SentenceTransformer("sentence-transformers/paraphrase-albert-small-v2")
+
+# Load FAISS index
 index = faiss.read_index("jibin_index.faiss")
 
-# Load mapping between index positions and actual context strings
-with open("jibin_docs.pkl", "rb") as f:
-    docs = pickle.load(f)  # list of strings
+# Load documents for metadata (optional improvement)
+def load_docs(folder):
+    from pathlib import Path
+    chunks = []
+    for file in Path(folder).glob("*.txt"):
+        with open(file, "r") as f:
+            text = f.read()
+            chunks.append({"filename": file.name, "text": text})
+    return chunks
 
-# Embed placeholder - assume embeddings were created with GTE
+docs = load_docs("knowledge_base/")
+texts = [doc["text"] for doc in docs]
+
+# Get context using embedding similarity
 def get_context(query):
-    return "Jibin specializes in cybersecurity and machine learning."  # temporary fallback
-    # Note: replace with embedding if needed externally
+    q_embed = model.encode([query])[0]
+    _, I = index.search(np.array([q_embed]).astype("float32"), k=3)
+    return "\n\n".join([texts[i] for i in I[0]])
 
-# Flask setup
+# Set up Flask app
 app = Flask(__name__)
-CORS(app, origins=["https://bears-beets-battlestargalactica.github.io"])
+CORS(app)
 
 @app.route("/chat", methods=["POST"])
 def chat():
@@ -32,26 +45,21 @@ def chat():
     )
 
     query = request.json["message"]
-    print(f"[{datetime.now()}] 📥 Received prompt: {query}")
-
     context = get_context(query)
 
-    try:
-        response = client.chat.completions.create(
-            model="openrouter/openchat-3.5-0106",
-            messages=[
-                {"role": "system", "content": f"You are JibinBot. Use this context: {context}"},
-                {"role": "user", "content": query}
-            ],
-            max_tokens=200,
-            temperature=0.7
-        )
-        return jsonify({"response": response.choices[0].message.content})
+    response = client.chat.completions.create(
+        model="mistralai/mixtral-8x7b-instruct",  # Free OpenRouter-supported model
+        messages=[
+            {"role": "system", "content": f"You are JibinBot. Funny, smart, and always helpful. Use this context: {context}"},
+            {"role": "user", "content": query}
+        ]
+    )
 
-    except Exception as e:
-        print(f"[{datetime.now()}] ❌ Error: {e}")
-        return jsonify({"response": "An error occurred, please try again."}), 500
+    return jsonify({"response": response.choices[0].message.content})
 
+# For Render deployment (bind to proper port)
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 5000))
+    port = int(os.environ.get("PORT", 5050))
     app.run(host="0.0.0.0", port=port)
+
+
